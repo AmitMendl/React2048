@@ -3,8 +3,8 @@ import './Grid.css'
 import './Tiles.css'
 import Tile from './Tile'
 
-function getRandomPos(max_width, max_height) {
-  return [Math.floor(Math.random() * max_width), Math.floor(Math.random() * max_height)];
+function Randint(num) {
+  return Math.floor(Math.random() * num);
 }
 
 function getNewValue() {
@@ -13,16 +13,9 @@ function getNewValue() {
 
 class Grid extends React.Component {
   
-  GenerateNewTile() {
-
-    let [x, y] = [null, null];
+  GenerateNewTile() { // doesn't work when x > y ???
     
-    for(let i = 0; i < 10; i++) {
-      [x, y] = getRandomPos(this.width, this.height)
-      console.log(this.state.tiles_m[x][y])
-      if (this.state.tiles_m[x][y] != null) { break }
-    }
-    
+    let [x, y] = [Randint(this.width), Randint(this.height)]
     this.state.tiles_m[x][y] = getNewValue()
   }
   
@@ -32,25 +25,28 @@ class Grid extends React.Component {
     this.width = props.width;
     this.height = props.height;
 
-    // generate tile matrix state 
     let tiles_m = []
-    for(let i = 0; i < this.height; i++) {
-      let tiles_row = []
-      for(let j = 0; j < this.width; j++) {
-        tiles_row.push(null)
+    for (let x = 0; x < this.height; x++){
+      let tiles_r = []
+
+      // create tile row content dynamically 
+      for (let y = 0; y < this.width; y++) {
+        tiles_r.push(null)
       }
-      tiles_m.push(tiles_row)
+      tiles_m.push(tiles_r)
     }
 
     this.state = {
       'tiles_m': tiles_m
     }
 
-    // generate starting tiles 
+    // // generate starting tiles 
     this.GenerateNewTile()
   }
       
   render() {
+
+    // console.log(this.state.tiles_m)
 
     // create tile rows dynamically
     let rows = []
