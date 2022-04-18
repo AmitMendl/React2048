@@ -1,0 +1,23 @@
+.Empty {
+  background-color: #456;
+  border-radius: 5%;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  margin-left: 7.5px;
+  float: left;
+}
+
+.Tile {
+  width: 100px;
+  height: 100px;
+  line-height: 75px;
+  float: left;
+  margin: auto;
+  margin-left: 7.5px;
+  border-radius: 5%;
+  font-size: 50px;
+  color: #fed;
+  text-shadow: 0px 5px 0 #a52;
+  background-color: #fa5;
+}

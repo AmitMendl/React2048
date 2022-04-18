@@ -1,0 +1,19 @@
+
+.Gridcontainer {
+    background-color: #567;
+    margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 1%;
+    margin-top: 5vh;
+    padding-bottom: 7.5px;
+  }
+  
+  .Gridrow {
+    height: 100px;
+    margin: auto;
+    margin-top: 7.5px;
+    width: auto
+    /* background-color: #678; */
+  }
+  
