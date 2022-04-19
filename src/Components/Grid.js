@@ -13,7 +13,7 @@ function getNewValue() {
 
 class Grid extends React.Component {
   
-  GenerateNewTile() { 
+  GenerateNewTile() { // doesn't work when x > y ???
     
     let [x, y] = [Randint(this.width), Randint(this.height)]
     this.state.tiles_m[y][x] = getNewValue()
@@ -50,13 +50,13 @@ class Grid extends React.Component {
 
     // create tile rows dynamically
     let rows = []
-    for (let x = 0; x < this.height; x++){
+    for (let y = 0; y < this.height; y++){
       let tiles = []
 
       // create tile row content dynamically 
-      for (let y = 0; y < this.width; y++) {
+      for (let x = 0; x < this.width; x++) {
         tiles.push(
-          <Tile id={`tile-${x}-${y}`} value={this.state.tiles_m[x][y]}/>
+          <Tile id={`tile-${x}-${y}`} value={this.state.tiles_m[y][x]}/>
         )
       }
       rows.push(

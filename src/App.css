@@ -16,9 +16,9 @@
 
 .Content {
   display: flex;
-  height: 100%;
-  padding-bottom: 75px;
+  padding-bottom: 50px;
   margin: 0;
+  background-color: #234;
 }
 
 .Text {

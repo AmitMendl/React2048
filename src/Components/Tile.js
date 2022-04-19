@@ -10,6 +10,7 @@ class Tile extends React.Component {
       }
 
     render() {
+
       return (<div className={this.state.value == null ? 'Empty' : 'Tile'}>
           <b>
             {this.state.value}
