@@ -13,10 +13,10 @@ function getNewValue() {
 
 class Grid extends React.Component {
   
-  GenerateNewTile() { // doesn't work when x > y ???
+  GenerateNewTile() { 
     
     let [x, y] = [Randint(this.width), Randint(this.height)]
-    this.state.tiles_m[x][y] = getNewValue()
+    this.state.tiles_m[y][x] = getNewValue()
   }
   
   constructor(props) {
@@ -40,7 +40,7 @@ class Grid extends React.Component {
       'tiles_m': tiles_m
     }
 
-    // // generate starting tiles 
+    // generate starting tiles 
     this.GenerateNewTile()
   }
       
