@@ -11,20 +11,13 @@
   text-shadow: 0px 0.5vh 0 #a52;
   padding: 1vh;
   font-size: 10vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .Content {
+  margin: auto;
   display: flex;
   padding-bottom: 50px;
   margin: 0;
   background-color: #234;
-}
-
-.Text {
-  color: #ddd;
-  font-size: 4vh;
-  text-align: left;
-  margin-left: 5%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

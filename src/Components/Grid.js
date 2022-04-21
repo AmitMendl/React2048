@@ -1,77 +1,44 @@
-import React from 'react';
-import './Grid.css'
-import './Tiles.css'
+import {initMatrix, generateNewTile} from './GridController'
+import React, { useState } from 'react';
 import Tile from './Tile'
+import './Grid.css'
 
-function Randint(num) {
-  return Math.floor(Math.random() * num);
+const tileWidth = 100;
+const tileHeight = 100;
+const tileMargin = 7.5;
+
+function rowWidth(width) {
+    return width * (tileWidth + tileMargin) + tileMargin
 }
 
-function getNewValue() {
-  return (Math.random() < 0.9 ? 2 : 4)
-}
+function generateTileMatrix(tiles_m) {
 
-class Grid extends React.Component {
-  
-  GenerateNewTile() { // doesn't work when x > y ???
-    
-    let [x, y] = [Randint(this.width), Randint(this.height)]
-    this.state.tiles_m[y][x] = getNewValue()
-  }
-  
-  constructor(props) {
+  const [width, height] = [tiles_m[0].length, tiles_m.length]
 
-    super(props);
-    this.width = props.width;
-    this.height = props.height;
-
-    let tiles_m = []
-    for (let x = 0; x < this.height; x++){
-      let tiles_r = []
-
-      // create tile row content dynamically 
-      for (let y = 0; y < this.width; y++) {
-        tiles_r.push(null)
-      }
-      tiles_m.push(tiles_r)
-    }
-
-    this.state = {
-      'tiles_m': tiles_m
-    }
-
-    // generate starting tiles 
-    this.GenerateNewTile()
-  }
-      
-  render() {
-
-    // console.log(this.state.tiles_m)
-
-    // create tile rows dynamically
-    let rows = []
-    for (let y = 0; y < this.height; y++){
-      let tiles = []
-
-      // create tile row content dynamically 
-      for (let x = 0; x < this.width; x++) {
-        tiles.push(
-          <Tile id={`tile-${x}-${y}`} value={this.state.tiles_m[y][x]}/>
-        )
-      }
-      rows.push(
-        <div className='Gridrow' style={{'width': `${this.width * 107.5 + 7.5 }px`}}>
-          {tiles}
-        </div>
-      )
-    }
-
-    return (
-      <div className='Gridcontainer'>
-        {rows}
+  return (
+    new Array(height).fill(null).map(
+      (val, y) => 
+      <div style={{'width': `${rowWidth(width)}`}} className='Gridrow'>
+          {new Array(width).fill(null).map((val, x) => <Tile value={tiles_m[y][x]}/>)}
       </div>
-    );
-  }
+    )
+  )
 }
+      
+function Grid(props) {
+
+  const width   = useState(props.width)[0];
+  const height  = useState(props.height)[0];
+  const tiles_m = useState(generateNewTile(initMatrix(width, height)))[0];
+
+  return (
+    <div className='Container'>
+      <div className='Gridcontainer'>
+        {generateTileMatrix(tiles_m, width, height)}
+      </div>
+    </div>
+  );
+}
+
 
 export default Grid
