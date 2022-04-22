@@ -6,6 +6,9 @@
   margin: auto;
   margin-left: 7.5px;
   float: left;
+  color: #bef;
+  font-size: 50px;
+  text-shadow: 0px 5px 0 #28a;
 }
 
 .Tile {
