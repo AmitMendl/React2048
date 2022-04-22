@@ -17,16 +17,20 @@ function move(xdiff, ydiff) {
 
 }
 
-function Tile(props) {
+const getColor = (val) => {
+  if(val == Infinity) return '#456'
+  return `rgb(${64 + val / 6 * 128}, ${32 + val / 6 * 128}, 0)`;
+}
 
-  const value = useState(props.value)[0]
+
+function Tile(props) {
   // const [ MoveX, MoveY ] = [ props.MoveX, props.MoveY ]
   // const styles = useSpring(move(MoveX, MoveY));
 
   return (
   <animated.div className=
-  {value == null ? 'Empty' : 'Tile'} 
-  // style={value != null ? styles : null}
+  {props.value == null ? 'Empty' : 'Tile'} 
+  style={{ backgroundColor: getColor(6 - Math.log2(props.value)) }}
   key={props.key}
   >
     <b>
