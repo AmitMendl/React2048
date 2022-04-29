@@ -4,10 +4,6 @@ import React from 'react';
 
 function App() {
 
-  document.addEventListener('keydown', function(e) {
-        console.log(e.key)
-  });
-
   return (
     <div className="App">
       <div className='Header'>

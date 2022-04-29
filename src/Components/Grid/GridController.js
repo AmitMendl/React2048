@@ -15,13 +15,11 @@ function generateNewTile(tiles_m) {
     const [width, height] = [tiles_m[0].length, tiles_m.length]
     let [x, y] = [Randint(width), Randint(height)]
     while(tiles_m[y][x] != null) [x, y] = [Randint(width), Randint(height)]
-    // const [x, y] = [3, 0]
     tiles_m[y][x] = getNewValue()
-    // tiles_m[y][x] = 2
     return tiles_m
 }
 
-function slideLeft(tiles_m) {
+function slide(tiles_m) {
     return tiles_m.map((row) => {
         let r = row.filter((val) => {
             return val != null
@@ -42,5 +40,11 @@ function slideLeft(tiles_m) {
     })
 }
 
+const rotate2DMatrix = (m) => m.map((line, y) => line.map((val, x) => m[x][y]).reverse())
 
-export {initMatrix, generateNewTile, slideLeft};
+const down  = (m) => rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(m)))));
+const right = (m) => rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(m)))));
+const up    = (m) => rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(m)))));
+const left  = (m) => slide(m);
+
+export {initMatrix, generateNewTile, down};

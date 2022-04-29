@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {initMatrix, generateNewTile, slideLeft } from './GridController'
+import React, { useState, useEffect } from 'react';
+import {initMatrix, generateNewTile, down } from './GridController'
 import Tile, {tileWidth, tileMargin} from '../Tile/Tile'
 import './Grid.css'
 
@@ -30,8 +30,20 @@ function Grid(props) {
   const height  = useState(props.height)[0];
   const [tiles_m, setMatrix] = useState(generateNewTile(initMatrix(width, height)));
 
+  document.addEventListener('keyup', (e) => {
+    switch(e.key){
+      case 'ArrowLeft':
+        break;
+      default:
+        break
+    }
+  })
+
   return (
     <div>
+      <button onClick={() => setMatrix(generateNewTile(down(tiles_m)))}>
+        down
+      </button>
       <div className='Container'>
         <div className='Gridcontainer'>
           {generateTileMatrix(tiles_m, width, height)}
