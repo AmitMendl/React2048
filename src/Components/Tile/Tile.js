@@ -29,8 +29,7 @@ function Tile(props) {
 
   return (
   <animated.div className=
-  {props.value == null ? 'Empty' : 'Tile'} 
-  style={{ backgroundColor: getColor(6 - Math.log2(props.value)) }}
+  {props.value == null ? 'Empty' : 'Tile'}
   key={props.key}
   >
     <b>

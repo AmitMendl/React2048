@@ -32,9 +32,6 @@ function Grid(props) {
 
   return (
     <div>
-      <button onClick={() => setMatrix(generateNewTile(slideLeft(tiles_m)))}>
-        slide left!
-      </button>
       <div className='Container'>
         <div className='Gridcontainer'>
           {generateTileMatrix(tiles_m, width, height)}
