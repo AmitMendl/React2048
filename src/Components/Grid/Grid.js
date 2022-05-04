@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {initMatrix, generateNewTile, down } from './GridController'
+import {initMatrix, generateNewTile, up, down, right, left } from './GridController'
 import Tile, {tileWidth, tileMargin} from '../Tile/Tile'
+import useKeyPress from '../useKeyPress';
 import './Grid.css'
 
 function rowWidth(width) {
@@ -15,10 +16,9 @@ function generateTileMatrix(tiles_m) {
     new Array(height).fill(null).map(
       (val, y) => 
       <div style={{'width': `${rowWidth(width)}`}} className='Gridrow'>
-          {new Array(width).fill(null).map((val, x) => <Tile 
-            value={tiles_m[y][x]} 
-            />
-          )}
+          {new Array(width).fill(null).map(
+            (val, x) => <Tile value={tiles_m[y][x]}/>
+            )}
       </div>
     )
   )
@@ -30,20 +30,37 @@ function Grid(props) {
   const height  = useState(props.height)[0];
   const [tiles_m, setMatrix] = useState(generateNewTile(initMatrix(width, height)));
 
-  document.addEventListener('keyup', (e) => {
-    switch(e.key){
-      case 'ArrowLeft':
-        break;
-      default:
-        break
+  const arrowUpPressed = useKeyPress("ArrowUp");
+  const arrowDownPressed = useKeyPress("ArrowDown");
+  const arrowRightPressed = useKeyPress("ArrowRight");
+  const arrowLeftPressed = useKeyPress("ArrowLeft");
+
+  useEffect(() => {
+    if (arrowUpPressed) {
+      setMatrix(generateNewTile(up(tiles_m)))
     }
-  })
+  }, [arrowUpPressed]);
+
+  useEffect(() => {
+    if (arrowDownPressed) {
+      setMatrix(generateNewTile(down(tiles_m)))
+    }
+  }, [arrowDownPressed]);
+
+  useEffect(() => {
+    if (arrowRightPressed) {
+      setMatrix(generateNewTile(right(tiles_m)))
+    }
+  }, [arrowRightPressed]);
+
+  useEffect(() => {
+    if (arrowLeftPressed) {
+      setMatrix(generateNewTile(left(tiles_m)))
+    }
+  }, [arrowLeftPressed]);
 
   return (
-    <div>
-      <button onClick={() => setMatrix(generateNewTile(down(tiles_m)))}>
-        down
-      </button>
+    <div onKeyDown={(e) => console.log(e.key)}>
       <div className='Container'>
         <div className='Gridcontainer'>
           {generateTileMatrix(tiles_m, width, height)}

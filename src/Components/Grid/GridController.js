@@ -47,4 +47,4 @@ const right = (m) => rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(rotate2D
 const up    = (m) => rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(m)))));
 const left  = (m) => slide(m);
 
-export {initMatrix, generateNewTile, down};
+export {initMatrix, generateNewTile, up, down, right, left };
