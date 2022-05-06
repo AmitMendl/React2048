@@ -26,12 +26,10 @@ const getColor = (val) => {
 function Tile(props) {
   // const [ MoveX, MoveY ] = [ props.MoveX, props.MoveY ]
   // const styles = useSpring(move(MoveX, MoveY));
+  const cssClass = props.value == null ? 'Empty' : 'Tile';
 
   return (
-  <animated.div className=
-  {props.value == null ? 'Empty' : 'Tile'}
-  key={props.key}
-  >
+  <animated.div className={cssClass}>
     <b>
       {props.value}
     </b>
