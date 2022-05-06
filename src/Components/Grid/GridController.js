@@ -24,6 +24,14 @@ const initMatrix = (width, height) => {
     return new Array(width).fill(null).map(() => new Array(height).fill(null));
 }
 
+const matrixCompare = (m1, m2) => {
+    if (m1.length !== m2.length) return false;
+    for (let i = 0; i < m1.length; i++)
+        if (m1[i] !== m2[i])
+            return false;
+    return true; 
+}
+
 function generateNewTile(tiles_m) {
     const [width, height] = [tiles_m[0].length, tiles_m.length]
     let [x, y] = [Randint(width), Randint(height)]
@@ -68,7 +76,6 @@ function generateTileMatrix(tiles_m) {
 
 const useInput = (Matrix, setMatrix) => {
 
-    // const [move, setMove] = useState((m) => m)
     const [move, setMove] = useState(0);
     const funcs = [stay, right, up, left, down];
   
@@ -77,23 +84,18 @@ const useInput = (Matrix, setMatrix) => {
         const downHandler = ({ key }) => {
             switch (key) {
                 case 'ArrowRight':
-                    // setMove((m) => generateNewTile(right(m)));
                     setMove(1);
                     break;
                 case 'ArrowUp':
-                    // setMove((m) => generateNewTile(up(m)));
                     setMove(2);
                     break;
                 case 'ArrowLeft':
-                    // setMove((m) => generateNewTile(left(m)));
                     setMove(3);
                     break;
                 case 'ArrowDown':
-                    // setMove((m) => generateNewTile(down(m)));
                     setMove(4);
                     break;
                 default:
-                    // setMove((m) => m)
                     setMove(0)
             }
         }
@@ -111,12 +113,9 @@ const useInput = (Matrix, setMatrix) => {
 
     }, [move]);
 
-    // console.log(move);
-    // return funcs[move];
-
     useEffect(() => {
-        // console.log(compare(funcs[move](Matrix), Matrix))
-        if(funcs[move](Matrix) !== Matrix) setMatrix(generateNewTile(funcs[move](Matrix)));
+        if(!matrixCompare(funcs[move](Matrix), Matrix)) 
+            setMatrix(generateNewTile(funcs[move](Matrix)));
     });
 }
 
