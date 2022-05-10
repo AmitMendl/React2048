@@ -25,10 +25,11 @@ const defaultFontSize = 50;
 
 const getFontSize = (text) => `${Math.min(defaultFontSize, 150 / text.length)}px`
 
-
 function Tile(props) {
+
   // const [ MoveX, MoveY ] = [ props.MoveX, props.MoveY ]
   // const styles = useSpring(move(MoveX, MoveY));
+  
   const cssClass = props.value == null ? 'Empty' : 'Tile';
   const fontSize = props.value == null ? 0 : getFontSize(props.value.toString());
 

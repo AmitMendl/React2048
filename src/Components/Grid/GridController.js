@@ -53,15 +53,17 @@ function generateTileMatrix(tiles_m) {
       )
     }
     
-    function slide(tiles_m) {
-        return tiles_m.map((row) => {
-        let r = row.filter((val) => {
+function slide(tiles_m) {
+    let s = 0;
+    return tiles_m.map((row) => {
+        let r = row.filter((val) => {       // remove empty tiles
             return val != null
         })
         const nr = []
-        for (let i = 0; i < r.length; i++)
+        for (let i = 0; i < r.length; i++)  // go ever tiles
         {
-            if(r[i] === r[i+1]){
+            if(r[i] === r[i+1]){            // compress equal tiles
+                s+=r[i]*2;                  // add tiles to score
                 nr.push(r[i]*2)
                 i++
             }
@@ -70,8 +72,8 @@ function generateTileMatrix(tiles_m) {
             }
         }
         while (nr.length < row.length) nr.push(null);
-        return nr
-    })
+        return nr;
+    });
 }
 
 const useInput = (Matrix, setMatrix) => {

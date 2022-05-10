@@ -6,9 +6,11 @@ const Grid = (props) => {
 
   const width   =             React.useState(props.width)[0];
   const height  =             React.useState(props.height)[0];
+
+  const [score, setScore]   = React.useState(0)
   const [Matrix, setMatrix] = React.useState(generateNewTile(initMatrix(width, height)));
   
-  useInput(Matrix, setMatrix);
+  useInput(Matrix, setMatrix, score, setScore);
 
   return (
     <div>
