@@ -1,7 +1,7 @@
 import Tile, {tileWidth, tileMargin} from '../Tile/Tile'
 import { useState, useEffect } from 'react'
 
-const rotate2DMatrix = (m) => m.map((line, y) => line.map((val, x) => m[x][y]).reverse());
+const rotate2DMatrix = (m) => m[0].map((line, y) => m.map((val, x) => m[x][y]).reverse());
 const down  = (m) => rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(m)))));
 const right = (m) => rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(m)))));
 const up    = (m) => rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(m)))));
@@ -43,18 +43,19 @@ function generateNewTile(tiles_m) {
 function generateTileMatrix(tiles_m) {
     
     const [width, height] = [tiles_m[0].length, tiles_m.length]
+    const style = {'width': `${rowWidth(width)}`}
     
     return (
       new Array(height).fill(null).map((val, y) => 
-        <div style={{'width': `${rowWidth(width)}`}} className='Gridrow'>
-            {new Array(width).fill(null).map((val, x) => <Tile value={tiles_m[y][x]}/>)}
+        <div style={style} className='Gridrow' key={y}>
+            {new Array(width).fill(null).map((val, x) => <Tile value={tiles_m[y][x]} key={x}/>)}
         </div>
       )
       )
     }
     
 function slide(tiles_m) {
-    let s = 0;
+    // let s = 0;
     return tiles_m.map((row) => {
         let r = row.filter((val) => {       // remove empty tiles
             return val != null
@@ -63,7 +64,7 @@ function slide(tiles_m) {
         for (let i = 0; i < r.length; i++)  // go ever tiles
         {
             if(r[i] === r[i+1]){            // compress equal tiles
-                s+=r[i]*2;                  // add tiles to score
+                // s+=r[i]*2;                  // add tiles to score
                 nr.push(r[i]*2)
                 i++
             }
