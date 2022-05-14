@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import {initMatrix, generateNewTile, generateTileMatrix, useInput } from './GridController'
+import React from 'react';
+import {newMatrix, useInput, tileMatrix } from './GridController'
 import './Grid.css'
       
 const Grid = (props) => {
@@ -8,13 +8,13 @@ const Grid = (props) => {
   const height  = React.useState(props.height)[0];
 
   const [score, setScore]   = React.useState(0)
-  const [Matrix, setMatrix] = React.useState(generateNewTile(generateNewTile(initMatrix(width, height))));
+  const [Matrix, setMatrix] = React.useState(newMatrix(width, height));
   
   useInput(Matrix, setMatrix, score, setScore);
 
   return (
     <>
-      <button className='Reset' onClick={() => setMatrix(generateNewTile(generateNewTile(initMatrix(width, height))))}>
+      <button className='Reset' onClick={() => setMatrix(newMatrix(width, height))}>
         RESET
       </button>
       <div className='Score'>
@@ -23,7 +23,7 @@ const Grid = (props) => {
       <div>
         <div className='Container'>
           <div className='Gridcontainer'>
-            {generateTileMatrix(Matrix, width, height)}
+            {tileMatrix(Matrix, width, height)}
           </div>
         </div>
       </div>

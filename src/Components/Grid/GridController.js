@@ -6,7 +6,9 @@ const down  = (m) => rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(slide(rotate2D
 const right = (m) => rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(m)))));
 const up    = (m) => rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(m)))));
 const left  = (m) => slide(m);
+
 const stay  = (m) => m
+const newMatrix = (width, height) => generateNewTile(generateNewTile(initMatrix(width, height)))
 
 const Randint = (num) => {
     return Math.floor(Math.random() * num);
@@ -40,7 +42,7 @@ function generateNewTile(tiles_m) {
     return tiles_m
 }
 
-function generateTileMatrix(tiles_m) {
+function tileMatrix(tiles_m) {
     
     const [width, height] = [tiles_m[0].length, tiles_m.length]
     const style = {'width': `${rowWidth(width)}`}
@@ -52,7 +54,7 @@ function generateTileMatrix(tiles_m) {
         </div>
       )
       )
-    }
+}
     
 function slide(tiles_m) {
     // let s = 0;
@@ -79,8 +81,10 @@ function slide(tiles_m) {
 
 const useInput = (Matrix, setMatrix) => {
 
+    const resetMatrix = (tiles_m) => generateNewTile(initMatrix(tiles_m[0].length, tiles_m.length));
+
     const [move, setMove] = useState(0);
-    const funcs = [stay, right, up, left, down];
+    const funcs = [stay, right, up, left, down, resetMatrix];
   
     useEffect(() => {
   
@@ -97,6 +101,9 @@ const useInput = (Matrix, setMatrix) => {
                     break;
                 case 'ArrowDown':
                     setMove(4);
+                    break;
+                case 'r':
+                    setMove(5);
                     break;
                 default:
                     setMove(0)
@@ -122,4 +129,4 @@ const useInput = (Matrix, setMatrix) => {
     });
 }
 
-export {initMatrix, generateNewTile, rowWidth, generateTileMatrix, useInput };
+export {newMatrix, useInput, tileMatrix };
