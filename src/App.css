@@ -8,10 +8,10 @@
   text-align: center;
   background-color: #345;
   color: #fa5;
-  text-shadow: 0px 0.5vh 0 #a52;
+  text-shadow: 0px 7.5px 0 #a52;
   padding: 1vh;
   font-size: 10vh;
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
 }
 
 .Content {

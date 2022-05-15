@@ -7,9 +7,7 @@ function App() {
   return (
     <div className="App">
       <div className='Header'>
-        <b>
-          2048
-        </b>
+        2048
       </div>
       <div className='Content'>
         <div style={{'margin': 'auto'}}>

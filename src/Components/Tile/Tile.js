@@ -36,9 +36,7 @@ function Tile(props) {
   return (
   <animated.div className={cssClass}>
     <div className='TileText' style={{'fontSize': fontSize}}>
-      <b>
-        {props.value}
-      </b>
+      {props.value}
     </div>
   </animated.div>
   );

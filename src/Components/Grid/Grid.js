@@ -13,21 +13,23 @@ const Grid = (props) => {
   useInput(Matrix, setMatrix, score, setScore);
 
   return (
-    <>
-      <button className='Reset' onClick={() => setMatrix(newMatrix(width, height))}>
-        RESET
-      </button>
-      <div className='Score'>
-        {score}
+    <div className='Container'>
+      <div className='GameHeader'>
+        <button className='button Reset' onClick={() => setMatrix(newMatrix(width, height))}>
+            RESET
+        </button>
+        <div className='Score'>
+          {score}
+        </div>
       </div>
       <div>
-        <div className='Container'>
+        <div className='GameContainer'>
           <div className='Gridcontainer'>
             {tileMatrix(Matrix, width, height)}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
