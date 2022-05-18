@@ -1,13 +1,8 @@
 import Tile, {tileWidth, tileMargin} from '../Tile/Tile'
 import { useState, useEffect } from 'react'
 
-const rotate2DMatrix = (m) => m[0].map((line, y) => m.map((val, x) => m[x][y]).reverse());
-const down  = (m) => rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(m)))));
-const right = (m) => rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(m)))));
-const up    = (m) => rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(m)))));
-const left  = (m) => slide(m);
-
 const stay  = (m) => m
+const rotate2DMatrix = (m) => m[0].map((line, y) => m.map((val, x) => m[x][y]).reverse());
 const newMatrix = (width, height) => generateNewTile(generateNewTile(initMatrix(width, height)))
 
 const Randint = (num) => {
@@ -26,14 +21,6 @@ const initMatrix = (width, height) => {
     return new Array(width).fill(null).map(() => new Array(height).fill(null));
 }
 
-const matrixCompare = (m1, m2) => {
-    if (m1.length !== m2.length) return false;
-    for (let i = 0; i < m1.length; i++)
-        if (m1[i] !== m2[i])
-            return false;
-    return true; 
-}
-
 function generateNewTile(tiles_m) {
     const [width, height] = [tiles_m[0].length, tiles_m.length]
     let [x, y] = [Randint(width), Randint(height)]
@@ -48,25 +35,32 @@ function tileMatrix(tiles_m) {
     const style = {'width': `${rowWidth(width)}`}
     
     return (
-      new Array(height).fill(null).map((val, y) => 
+        new Array(height).fill(null).map((val, y) => 
         <div style={style} className='Gridrow' key={y}>
             {new Array(width).fill(null).map((val, x) => <Tile value={tiles_m[y][x]} key={x}/>)}
         </div>
       )
-      )
+    )
 }
     
-function slide(tiles_m) {
-    // let s = 0;
-    return tiles_m.map((row) => {
-        let r = row.filter((val) => {       // remove empty tiles
+const useInput = (Matrix, setMatrix, score, setScore) => {
+        
+    const reset = (width, height) => {
+        setScore(0);
+        return initMatrix(width, height);
+    }
+        
+    function slide(tiles_m) {
+        let s = score;
+        return tiles_m.map((row) => {
+            let r = row.filter((val) => {       // remove empty tiles
             return val != null
         })
         const nr = []
         for (let i = 0; i < r.length; i++)  // go ever tiles
         {
             if(r[i] === r[i+1]){            // compress equal tiles
-                // s+=r[i]*2;                  // add tiles to score
+                s+=r[i]*2;                  // add tiles to score
                 nr.push(r[i]*2)
                 i++
             }
@@ -75,13 +69,15 @@ function slide(tiles_m) {
             }
         }
         while (nr.length < row.length) nr.push(null);
+        setScore(s);
         return nr;
-    });
-}
+    });}
 
-const useInput = (Matrix, setMatrix) => {
-
-    const resetMatrix = (tiles_m) => generateNewTile(initMatrix(tiles_m[0].length, tiles_m.length));
+    const resetMatrix = (tiles_m) => generateNewTile(reset(tiles_m[0].length, tiles_m.length));
+    const down  = (m) => rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(m)))));
+    const right = (m) => rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(m)))));
+    const up    = (m) => rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(m)))));
+    const left  = (m) => slide(m);
 
     const [move, setMove] = useState(0);
     const funcs = [stay, right, up, left, down, resetMatrix];
@@ -124,7 +120,7 @@ const useInput = (Matrix, setMatrix) => {
     }, [move]);
 
     useEffect(() => {
-        if(!matrixCompare(funcs[move](Matrix), Matrix)) 
+        if(funcs[move](Matrix) !== Matrix)
             setMatrix(generateNewTile(funcs[move](Matrix)));
     });
 }
