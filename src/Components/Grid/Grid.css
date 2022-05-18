@@ -1,4 +1,13 @@
 
+@font-face {
+  font-family: Roboto;
+  src: url(../../fonts/Roboto-Medium.ttf);
+}
+
+button {
+  outline: none;
+}
+
 .Gridcontainer {
     background-color: #567;
     margin: 0 auto;
@@ -23,8 +32,8 @@
     width: 100px;
     margin-left: 7.5px;
 
-    font-weight: bold;
     font-size: 25px;
+    font-family: 'Roboto';
     
     border: 0px;
     border-radius: 5px;
@@ -32,24 +41,28 @@
     background-color: #678;
 }
 
-.Reset:hover {
-  border: 5px solid #678;
-}
-
 .Score {
   float: right;
   height: 40px;
-  width: 100px;
+  width: 80px;
+  padding: 0px 10px 0px 10px;
   margin-right: 7.5px;
-
-  font-weight: bold;
-  font-size: 25px;
-  line-height: 35px;
   
+  display: table;
   border: 0px;
   border-radius: 5px;
   color: #345;
   background-color: #678;
+}
+
+.ScoreText {
+  display: table-cell;
+  vertical-align: middle;
+
+  text-align: right;
+  font-size: 25px;
+  line-height: 35px;
+  font-family: 'Roboto';
 }
 
 .Container {
@@ -65,4 +78,5 @@
 .GameHeader {
   height: 40px;
 }
+
   

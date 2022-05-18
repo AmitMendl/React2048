@@ -15,11 +15,13 @@ const Grid = (props) => {
   return (
     <div className='Container'>
       <div className='GameHeader'>
-        <button className='button Reset' onClick={() => setMatrix(newMatrix(width, height))}>
+        <button className='Reset' onClick={() => setMatrix(newMatrix(width, height))}>
             RESET
         </button>
         <div className='Score'>
-          {score}
+          <div className='ScoreText'>
+            {score}
+          </div>
         </div>
       </div>
       <div>
