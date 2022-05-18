@@ -2,6 +2,6 @@
 
 A beginner's react.js project recreating 2048
 
-### controls 
+### Controls 
 
 use the Arrow keys for input, press R to reset.
