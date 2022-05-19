@@ -76,7 +76,20 @@ button {
 }
 
 .GameHeader {
+  width: 440px;
   height: 40px;
 }
 
-  
+.SizeHeader {
+  width: 150px;
+  height: 40px;
+  margin: auto;
+  padding: none;
+  background-color: #456;
+  border-radius: 5px;
+  font-size: 30px;
+  font-family: 'Roboto';
+  display: inline-block;
+  color: #234;
+  margin: auto;
+}
