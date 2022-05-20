@@ -1,5 +1,5 @@
 import React from 'react';
-import {newMatrix, useInput, tileMatrix } from './GridController'
+import { newMatrix, useInput, tileMatrix } from './GridController'
 import './Grid.css'
 import './SizeSelect.css'
       
@@ -15,7 +15,7 @@ const Grid = (props) => {
 
   const Reset = () => { //Reset Button
     return (
-      <button className='Reset' onClick={() => {setMatrix(newMatrix(width, height));setScore(0);}}>
+      <button className='Reset' onClick={() => {setMatrix(newMatrix(width, height)); setScore(0);}}>
         RESET
       </button>)
   }

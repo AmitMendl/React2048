@@ -3,23 +3,11 @@ import { useState, useEffect } from 'react'
 
 const stay  = (m) => m
 const rotate2DMatrix = (m) => m[0].map((line, y) => m.map((val, x) => m[x][y]).reverse());
-const newMatrix = (width, height) => generateNewTile(generateNewTile(initMatrix(width, height)))
-
-const Randint = (num) => {
-    return Math.floor(Math.random() * num);
-}
-
-const getNewValue = () => {
-    return (Math.random() < 0.9 ? 2 : 4)
-}
-
-const rowWidth = (width) => {
-    return width * (tileWidth + tileMargin) + tileMargin
-}
-
-const initMatrix = (width, height) => {
-    return new Array(width).fill(null).map(() => new Array(height).fill(null));
-}
+const Randint = (num) => Math.floor(Math.random() * num);
+const getNewValue = () => Math.random() < 0.9 ? 2 : 4;
+const rowWidth = (width) => width * (tileWidth + tileMargin) + tileMargin;
+const initMatrix = (width, height) => new Array(width).fill(null).map(() => new Array(height).fill(null));
+const newMatrix = (width, height) => generateNewTile(generateNewTile(initMatrix(width, height)));
 
 function generateNewTile(tiles_m) {
     const [width, height] = [tiles_m[0].length, tiles_m.length]
@@ -52,21 +40,16 @@ const useInput = (Matrix, setMatrix, score, setScore) => {
         
     function slide(tiles_m) {
         let s = score;
-        return tiles_m.map((row, y) => {
-                let r = row.filter((val) => {       // remove empty tiles
-                return val != null
-            })
+        return tiles_m.map((row) => {
+            let r = row.filter((val) => val != null)    // remove empty tiles
             const nr = []
-            for (let x = 0; x < r.length; x++)      // go ever tiles
-            {
-                if(r[x] === r[x+1]){                // compress equal tiles
-                    s+=r[x]*2;                      // add tiles to score
+            for (let x = 0; x < r.length; x++) {        // go ever tiles
+                if(r[x] === r[x+1]){                    // compress equal tiles
+                    s+=r[x]*2;                          // add tiles to score
                     nr.push(r[x]*2);
                     x++;
                 }
-                else {
-                    nr.push(r[x]);
-                }
+                else nr.push(r[x]);
             }
             while (nr.length < row.length) nr.push(null);
             setScore(s);
@@ -127,4 +110,4 @@ const useInput = (Matrix, setMatrix, score, setScore) => {
 
 }
 
-export {newMatrix, useInput, tileMatrix };
+export { newMatrix, useInput, tileMatrix };
