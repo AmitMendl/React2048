@@ -37,72 +37,75 @@ function tileMatrix(tiles_m) {
     return (
         new Array(height).fill(null).map((val, y) => 
         <div style={style} className='Gridrow' key={y}>
-            {new Array(width).fill(null).map((val, x) => <Tile value={tiles_m[y][x]} key={x}/>)}
+            {new Array(width).fill(null).map((val, x) => <Tile value={tiles_m[y][x]} key={x*10+y}/>)}
         </div>
       )
     )
 }
     
 const useInput = (Matrix, setMatrix, score, setScore) => {
-        
+    
+    let moves = initMatrix(Matrix[0].length, Matrix.length)
+
     const reset = (width, height) => {
-        setScore(0);
+        setScore(5);
         return initMatrix(width, height);
     }
         
     function slide(tiles_m) {
         let s = score;
-        return tiles_m.map((row) => {
-            let r = row.filter((val) => {       // remove empty tiles
-            return val != null
-        })
-        const nr = []
-        for (let i = 0; i < r.length; i++)  // go ever tiles
-        {
-            if(r[i] === r[i+1]){            // compress equal tiles
-                s+=r[i]*2;                  // add tiles to score
-                nr.push(r[i]*2)
-                i++
+        return tiles_m.map((row, y) => {
+                let r = row.filter((val) => {       // remove empty tiles
+                return val != null
+            })
+            const nr = []
+            for (let x = 0; x < r.length; x++)      // go ever tiles
+            {
+                if(r[x] === r[x+1]){                // compress equal tiles
+                    s+=r[x]*2;                      // add tiles to score
+                    nr.push(r[x]*2);
+                    x++;
+                }
+                else {
+                    nr.push(r[x]);
+                }
             }
-            else {
-                nr.push(r[i])
-            }
-        }
-        while (nr.length < row.length) nr.push(null);
-        setScore(s);
-        return nr;
-    });}
+            while (nr.length < row.length) nr.push(null);
+            setScore(s);
+            return nr;
+        });
+    }
 
     const resetMatrix = (tiles_m) => generateNewTile(reset(tiles_m[0].length, tiles_m.length));
+    const left  = (m) => slide(m);
     const down  = (m) => rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(m)))));
     const right = (m) => rotate2DMatrix(rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(m)))));
     const up    = (m) => rotate2DMatrix(slide(rotate2DMatrix(rotate2DMatrix(rotate2DMatrix(m)))));
-    const left  = (m) => slide(m);
 
-    const [move, setMove] = useState(0);
-    const funcs = [stay, right, up, left, down, resetMatrix];
+    const [move, setMove] = useState(5);
+    const funcs = [left, down, right, up, resetMatrix, stay];
   
     useEffect(() => {
   
         const downHandler = ({ key }) => {
             switch (key) {
-                case 'ArrowRight':
-                    setMove(1);
-                    break;
-                case 'ArrowUp':
-                    setMove(2);
-                    break;
                 case 'ArrowLeft':
-                    setMove(3);
+                    setMove(0);
                     break;
                 case 'ArrowDown':
-                    setMove(4);
+                    setMove(1);
+                    break;
+                case 'ArrowRight':
+                    setMove(2);
+                    break;
+                case 'ArrowUp':
+                    setMove(3);
                     break;
                 case 'r':
-                    setMove(5);
+                    setMove(4);
                     break;
                 default:
-                    setMove(0)
+                    setMove(5)
             }
         }
   
@@ -114,7 +117,7 @@ const useInput = (Matrix, setMatrix, score, setScore) => {
         return () => {
             window.removeEventListener("keydown", downHandler);
             window.removeEventListener("keyup", upHandler);
-            setMove(0)
+            setMove(5)
         };
 
     }, [move]);
@@ -123,6 +126,7 @@ const useInput = (Matrix, setMatrix, score, setScore) => {
         if(funcs[move](Matrix) !== Matrix)
             setMatrix(generateNewTile(funcs[move](Matrix)));
     });
+
 }
 
 export {newMatrix, useInput, tileMatrix };

@@ -1,45 +1,53 @@
+import { animated, useSpring } from 'react-spring';
 import React from 'react';
-import { animated } from 'react-spring';
 import './Tiles.css'
 
+
 const tileWidth = 100;
-// const tileHeight = 100;
+const tileHeight = 100;
 const tileMargin = 7.5;
 const defaultFontSize = 50;
 
-// function move(xdiff, ydiff) {
-
-//   if (xdiff != null || ydiff != null) return null;
-
-//   return ({
-//     from: { x: 0, y: 0 },
-//     to: { x: xdiff * (tileWidth + tileMargin), y: ydiff * (tileHeight + tileMargin) },
-//   });
-
-// }
-
 // const getColor = (val) => {
-//   if(val == Infinity) return '#456'
-//   return `rgb(${64 + val / 6 * 128}, ${32 + val / 6 * 128}, 0)`;
-// }
-
-const getFontSize = (text) => `${Math.min(defaultFontSize, 150 / text.length)}px`
-
-function Tile(props) {
-
-  // const [ MoveX, MoveY ] = [ props.MoveX, props.MoveY ]
-  // const styles = useSpring(move(MoveX, MoveY));
+  //   if(val == Infinity) return '#456'
+  //   return `rgb(${64 + val / 6 * 128}, ${32 + val / 6 * 128}, 0)`;
+  // }
   
-  const cssClass = props.value == null ? 'Empty' : 'Tile';
-  const fontSize = props.value == null ? 0 : getFontSize(props.value.toString());
+  const getFontSize = (text) => `${Math.min(defaultFontSize, 150 / text.length)}px`
+  
+  function Tile(props) {
+    
+    function move(xdiff, ydiff) {
 
-  return (
-  <animated.div className={cssClass}>
-    <div className='TileText' style={{'fontSize': fontSize}}>
-      {props.value}
+      if (props.value == null) return {};
+    
+      const [ MoveX, MoveY ] = [ props.MoveX, props.MoveY ]
+      if (MoveX != null || MoveY != null) return {};
+    
+      return ({
+        from: { x: xdiff * (tileWidth + tileMargin), y: ydiff * (tileHeight + tileMargin) },
+        to: { x: -tileMargin, y: 0 },
+      });
+    }
+  
+  const Move     = useSpring(move(2, 2));
+  const fontSize = props.value == null ? 0 : getFontSize(props.value.toString());
+  const cssClass = props.value == null ? 'Empty' : 'Tile';
+  const TileContent = () => (
+    <div className={cssClass} style={Move} >
+      <div className='TileText' style={{'fontSize': fontSize}}>
+        {props.value}
+      </div>
     </div>
-  </animated.div>
+  )
+
+  if (props.value != null) return (
+    <div className='Empty'>
+      <TileContent/>
+    </div>
   );
+
+  return <div className='Empty'/>;
 }
 
 export default Tile
