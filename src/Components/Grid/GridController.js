@@ -44,8 +44,6 @@ function tileMatrix(tiles_m) {
 }
     
 const useInput = (Matrix, setMatrix, score, setScore) => {
-    
-    let moves = initMatrix(Matrix[0].length, Matrix.length)
 
     const reset = (width, height) => {
         setScore(5);
