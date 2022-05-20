@@ -1,27 +1,30 @@
 @font-face {
     font-family: Roboto;
-    src: url(../../fonts/Roboto-Medium.ttf);
+    src: url(./fonts/Roboto-Medium.ttf);
 }
   
 select {
   width: 36px;
-  font-size: 16px;
-  border: none;
+  margin: 4px;
   height: 32px;
+  font-size: 25px;
+
+  border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   outline: none;
+
+  text-align: center;
+  font-family: 'Roboto';
   background: #678;
   color: #345;
-  text-align: center;
-  border-radius: 5px;
-  font-size: 25px;
-  font-family: 'Roboto';
-  margin-top: 4px;
-  margin-bottom: 4px;
-
-  border-color: #345;
+  
   border-style: solid;
   border-width: 2.5px;
+  border-radius: 5px;
+}
+
+select option:hover {
+  background-color: #456;
 }

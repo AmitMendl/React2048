@@ -15,9 +15,9 @@
 }
 
 .Content {
-  margin: auto;
   display: flex;
   padding-bottom: 50px;
   margin: 0;
   background-color: #234;
+  padding-bottom: 25px;
 }
