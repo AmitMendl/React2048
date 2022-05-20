@@ -1,6 +1,7 @@
 import React from 'react';
 import {newMatrix, useInput, tileMatrix } from './GridController'
 import './Grid.css'
+import './SizeSelect.css'
       
 const Grid = (props) => {
 
@@ -34,6 +35,22 @@ const Grid = (props) => {
       <div className='GameHeader'>
         <Reset/>
         <Score/>
+        <div className='SizeHeader'>
+          <select>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+          </select>
+          <select>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+          </select>
+        </div>
       </div>
       <div>
         <div className='GameContainer'>
