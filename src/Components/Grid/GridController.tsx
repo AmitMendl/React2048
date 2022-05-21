@@ -41,18 +41,17 @@ const useInput = (Matrix: tile[][], setMatrix: (m: tile[][]) => void, score: num
     function slide(tiles_m: tile[][]) {
         let s = score;
         return tiles_m.map((row, y) => {
-            // let r = row.filter((val) => !val.empty)                                              // remove empty tiles
             const nr = []
-            for (let x = 0; x < row.length; x++) {                                                  // go ever tiles
+            for (let x = 0; x < row.length; x++) {                                                      // go ever tiles
                 if (row[x].empty) continue;
                 let next = 1;
                 while(x + next < row.length - 1 && row[x+next].empty) next++;
-                if (x+next < row.length && row[x].value === row[x+next].value) {                                             // compress equal tiles
-                    s+=row[x].value*2;                                                              // add tiles to score
-                    nr.push( { value: row[x].value*2, animation: '', empty: false } );
+                if (x+next < row.length && row[x].value === row[x+next].value) {                        // compress equal tiles
+                    s+=row[x].value*2;                                                                  // add tiles to score
+                    nr.push( { value: row[x].value*2, animation: 'grow', empty: false } );
                     x += next;
                 }
-                else nr.push( { value: row[x].value, animation: '', empty: false } );
+                else nr.push( { value: row[x].value, animation: 'move', empty: false } );
             }
             while (nr.length < row.length) nr.push( { value: 0, animation: '', empty: true } );
             setScore(s);

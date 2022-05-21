@@ -17,12 +17,12 @@ const defaultFontSize = 50;
   //   return `rgb(${64 + val / 6 * 128}, ${32 + val / 6 * 128}, 0)`;
   // }
 
-// const move = () => {
-//   let keyframes =
+// const move = (x: number, y: number) => {
+//   return (
 //     `@-webkit-keyframes move {
-//         000% {-webkit-transform:translate(${xdiff * (tileWidth + tileMargin)}px, ${ydiff * (tileHeight + tileMargin)}px)} 
+//         000% {-webkit-transform:translate(${-x * (tileWidth + tileMargin)}px, ${-y * (tileHeight + tileMargin)}px)} 
 //         100% {-webkit-transform:translate(0px, 0px)}
-//     }`;
+//     }`);
 // }
   
 const getFontSize = (text: string) => `${Math.min(defaultFontSize, 150 / text.length)}px`
@@ -51,7 +51,8 @@ function Tile({ tile }: props) {
   const Type = empty ? 'Empty' : 'Tile';
 
   var animationClass = '';
-  if (animation == 'spawn') animationClass = 'TileSpawn'
+  if (animation === 'spawn')  animationClass = 'TileSpawn';
+  if (animation === 'grow')   animationClass = 'TileGrow';
 
   const cssClass = `${Type} ${animationClass}`;
 
