@@ -1,0 +1,95 @@
+
+@font-face {
+  font-family: Roboto;
+  src: url(../Assets/Roboto-Medium.ttf);
+}
+
+button {
+  outline: none;
+}
+
+.Gridcontainer {
+    background-color: #567;
+    margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 1%;
+    padding-bottom: 7.5px;
+    padding-right: 7.5px;
+    padding-top: 1px;
+}
+
+.Gridrow {
+    height: 100px;
+    margin: auto;
+    margin-top: 7.5px;
+    width: auto
+}
+
+.Reset {
+    float: left;
+    height: 40px;
+    width: 100px;
+    margin-left: 7.5px;
+
+    font-size: 25px;
+    font-family: 'Roboto';
+    
+    border: 0px;
+    border-radius: 5px;
+    color: #345;
+    background-color: #678;
+}
+
+.Score {
+  float: right;
+  height: 40px;
+  width: 80px;
+  padding: 0px 10px 0px 10px;
+  margin-right: 7.5px;
+  
+  display: table;
+  border: 0px;
+  border-radius: 5px;
+  color: #345;
+  background-color: #678;
+}
+
+.ScoreText {
+  display: table-cell;
+  vertical-align: middle;
+
+  text-align: right;
+  font-size: 25px;
+  line-height: 35px;
+  font-family: 'Roboto';
+}
+
+.Container {
+    margin: 0;
+    margin-top: 25px;
+}
+
+.GameContainer {
+    margin: 0;
+    margin-top: 25px;
+}
+
+.GameHeader {
+  width: 440px;
+  height: 40px;
+}
+
+.SizeHeader {
+  width: 150px;
+  height: 40px;
+  margin: auto;
+  padding: none;
+  background-color: #456;
+  border-radius: 5px;
+  font-size: 30px;
+  font-family: 'Roboto';
+  display: inline-block;
+  color: #234;
+  margin: auto;
+}
