@@ -16,6 +16,14 @@ const defaultFontSize = 50;
   //   if(val == Infinity) return '#456'
   //   return `rgb(${64 + val / 6 * 128}, ${32 + val / 6 * 128}, 0)`;
   // }
+
+// const move = () => {
+//   let keyframes =
+//     `@-webkit-keyframes move {
+//         000% {-webkit-transform:translate(${xdiff * (tileWidth + tileMargin)}px, ${ydiff * (tileHeight + tileMargin)}px)} 
+//         100% {-webkit-transform:translate(0px, 0px)}
+//     }`;
+// }
   
 const getFontSize = (text: string) => `${Math.min(defaultFontSize, 150 / text.length)}px`
 
