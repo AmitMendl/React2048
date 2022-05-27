@@ -1,6 +1,6 @@
 type tile = {
     value: number,
-    animation: any,
+    animation: string,
     empty: boolean,
 }
 

@@ -9,6 +9,7 @@ const getNewValue = () => Math.random() < 0.9 ? 2 : 4;
 const rowWidth = (width: number) => width * (tileWidth + tileMargin) + tileMargin;
 const initMatrix = (width: number, height: number) => new Array(width).fill(null).map(() => new Array(height).fill( { value: 0, animation: '', empty: true } ));
 const newMatrix = (width: number, height: number) => generateNewTile(generateNewTile(initMatrix(width, height)));
+const removeAnimations = (m: tile[][]) => m.map((row) => row.map((tile) => {return { value: tile.value, animation: '', empty: tile.empty }})) // add remove animations
 
 function generateNewTile(tiles_m: tile[][]) {
     const [width, height] = [tiles_m[0].length, tiles_m.length]
@@ -37,7 +38,9 @@ const useInput = (Matrix: tile[][], setMatrix: (m: tile[][]) => void, score: num
         setScore(5);
         return initMatrix(width, height);
     }
-        
+    
+    var change: boolean = false;
+
     function slide(tiles_m: tile[][]) {
         let s = score;
         return tiles_m.map((row, y) => {
@@ -52,6 +55,7 @@ const useInput = (Matrix: tile[][], setMatrix: (m: tile[][]) => void, score: num
                     x += next;
                 }
                 else nr.push( { value: row[x].value, animation: 'move', empty: false } );
+                if(x !== nr.length - 1) change = true;
             }
             while (nr.length < row.length) nr.push( { value: 0, animation: '', empty: true } );
             setScore(s);
@@ -105,9 +109,12 @@ const useInput = (Matrix: tile[][], setMatrix: (m: tile[][]) => void, score: num
 
     }, [move]);
 
+    change = change && move < 4;
+
     useEffect(() => {
         if(funcs[move](Matrix) !== Matrix)
-            setMatrix(generateNewTile(funcs[move](Matrix))); // add new tile
+            if (change) setMatrix(generateNewTile(funcs[move](Matrix))); // add new tile
+            else setMatrix(removeAnimations(funcs[move](Matrix)));
     });
 
 }
