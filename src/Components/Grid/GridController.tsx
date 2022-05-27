@@ -112,9 +112,10 @@ const useInput = (Matrix: tile[][], setMatrix: (m: tile[][]) => void, score: num
     change = change && move < 4;
 
     useEffect(() => {
-        if(funcs[move](Matrix) !== Matrix)
-            if (change) setMatrix(generateNewTile(funcs[move](Matrix))); // add new tile
-            else setMatrix(removeAnimations(funcs[move](Matrix)));
+        let t_matrix = funcs[move](Matrix);
+        if(move != 5)
+            if (change) setMatrix(generateNewTile(t_matrix)); // add new tile
+            else setMatrix(removeAnimations(Matrix));
     });
 
 }
